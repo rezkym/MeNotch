@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeNotch — Notch-mu, sekarang hidup</title>
+<meta name="description" content="Kotak hitam di atas layar MacBook-mu sekarang bisa memutar lagu, menghitung waktu fokus, menyimpan file, dan mengingat yang kamu salin.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" href="assets/menotch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<!-- Icon sprite (drawn in the style of the app's SF Symbols) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-house" viewBox="0 0 24 24"><path d="M12 3.2 2.8 11h2.7v9.3h5V15h3v5.3h5V11h2.7z"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 1.5h6v2H9zM12 4.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zm0 2.2a6.3 6.3 0 1 1 0 12.6 6.3 6.3 0 0 1 0-12.6zM11 8v5.4l3.9 2.3 1-1.6-2.9-1.7V8z"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 4v2h10V7zm0 4v2h7v-2z"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2h6v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3zm1 1.5v2h4v-2zM7 10v2h10v-2zm0 4v2h7v-2z"/></symbol>
+  <symbol id="i-tray" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 13 5.5 4h13L21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2.2 0H9a3 3 0 0 0 6 0h3.8L17 6H7z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M3 7h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zm14 1h1.5a3 3 0 0 1 0 6H17v-2h1.5a1 1 0 0 0 0-2H17zM2 20h17v2H2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14.5 2 22 9.5l-2 1-1.5-1.5-4 4 .5 4-1.5 1.5-4-4L4 20l-1-1 5.5-5.5-4-4L6 8l4 .5 4-4L12.5 3z"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10.3 2h3.4l.5 2.6 1.7.7 2.2-1.5 2.4 2.4-1.5 2.2.7 1.7 2.6.5v3.4l-2.6.5-.7 1.7 1.5 2.2-2.4 2.4-2.2-1.5-1.7.7-.5 2.6h-3.4l-.5-2.6-1.7-.7-2.2 1.5-2.4-2.4 1.5-2.2-.7-1.7L2 13.7v-3.4l2.6-.5.7-1.7-1.5-2.2 2.4-2.4 2.2 1.5 1.7-.7zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 9 13"><path d="M5.6 0 0 7.4h3.6L2.8 13 9 5.2H5.3z"/></symbol>
+  <symbol id="i-airdrop" viewBox="0 0 24 24"><path d="M12 13.5a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM12 9a6.3 6.3 0 0 1 5.5 9.4l-1.7-1A4.3 4.3 0 1 0 8.2 17.4l-1.7 1A6.3 6.3 0 0 1 12 9zm0-4.5a10.8 10.8 0 0 1 9.4 16.1l-1.7-1a8.8 8.8 0 1 0-15.4 0l-1.7 1A10.8 10.8 0 0 1 12 4.5z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 10V7a5 5 0 0 1 10 0v3h1.5v11h-13V10zm2 0h6V7a3 3 0 0 0-6 0z"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 5c5 0 8.8 3.7 10 7-.5 1.4-1.4 2.9-2.7 4.2l-1.5-1.5A6 6 0 0 0 9.3 6.2L7.6 4.6A11 11 0 0 1 12 5zM3.3 2 22 20.7 20.7 22l-3.2-3.2A11 11 0 0 1 12 19c-5 0-8.8-3.7-10-7a12 12 0 0 1 4.1-5.2L2 3.3zm4.3 6.2a6 6 0 0 0 8.2 8.2l-1.6-1.6a3.8 3.8 0 0 1-5-5z"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1-7.7 10h2.1A6 6 0 1 0 12 6v3L7.5 5 12 1z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M8 2h11a2 2 0 0 1 2 2v12h-2V4H8zM4 6h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M11 3h2v10.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6zM4 19h16v2H4z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 3l7 7-1.4 1.4L13 6.8V21h-2V6.8l-4.6 4.6L5 10z"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 3a1.5 1.5 0 0 1 1.5 1.5V11h1V3.5a1.5 1.5 0 0 1 3 0V11h1V6a1.5 1.5 0 0 1 3 0v9a7 7 0 0 1-7 7h-1a6 6 0 0 1-5.4-3.4L2.4 13a1.4 1.4 0 0 1 2.5-1.2l1.6 2.6V4.5A1.5 1.5 0 0 1 8 3z"/></symbol>
+</svg>
+
+<!-- The island: fixed to the top of the window like the real notch -->
+<div class="island" id="island" data-state="closed" data-slot="none" aria-label="Contoh MeNotch: arahkan kursor atau ketuk untuk membuka" role="region">
+  <svg class="island__flare island__flare--l" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 0 Q16 0 16 16 L16 0 Z"/></svg>
+  <svg class="island__flare island__flare--r" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 0 L0 16 Q0 0 16 0 Z"/></svg>
+  <div class="island__body" id="islandBody" data-ui tabindex="0" role="button" aria-expanded="false" aria-label="Buka MeNotch">
+    <div class="layer layer--closed">
+      <span class="face-slot" data-face="island"></span>
+      <span class="slot" aria-hidden="true">
+        <span class="s-bars"><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+        <span class="s-timer"><svg class="ring" viewBox="0 0 12 12"><circle class="bg" cx="6" cy="6" r="4.6"/><circle class="fg" id="ringFg" cx="6" cy="6" r="4.6" stroke-dasharray="28.9" stroke-dashoffset="2"/></svg><span id="pillTimer">24:59</span></span>
+        <span class="s-bolt"><svg class="bolt" viewBox="0 0 9 13"><use href="#i-bolt"/></svg>87%</span>
+        <span class="s-tray"><svg class="icon"><use href="#i-tray"/></svg>3</span>
+        <span class="s-cup"><svg class="icon"><use href="#i-cup"/></svg></span>
+      </span>
+    </div>
+
+    <div class="layer layer--open" aria-hidden="true">
+      <div class="ui-head">
+        <div class="tabs">
+          <span class="face-slot" data-face="island-open"></span>
+          <span class="tab is-on"><svg class="icon"><use href="#i-house"/></svg></span>
+          <span class="tab"><svg class="icon"><use href="#i-timer"/></svg></span>
+          <span class="tab"><svg class="icon"><use href="#i-bubble"/></svg></span>
+          <span class="tab"><svg class="icon"><use href="#i-clip"/></svg></span>
+          <span class="tab"><svg class="icon"><use href="#i-tray"/></svg></span>
+        </div>
+        <div class="status">
+          <span class="tog is-on"><svg class="icon"><use href="#i-cup"/></svg></span>
+          <span class="tog"><svg class="icon"><use href="#i-pin"/></svg></span>
+          <span class="tog"><svg class="icon"><use href="#i-gear"/></svg></span>
+          <span class="batt"><i></i>87%</span>
+        </div>
+      </div>
+      <div class="ui-main" data-home></div>
+    </div>
+
+    <div class="layer layer--peek" aria-live="polite">
+      <span class="peek__icon"><svg class="icon"><use href="#i-copy"/></svg></span>
+      <span class="peek__text"><b></b><span id="peekText"></span></span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 · Hero — black, the notch's own colour -->
+<section class="ch ch--black hero" id="top" data-chapter="hero" data-preset="user" data-slot="none">
+  <header class="ears">
+    <a class="wordmark" href="#top" aria-label="MeNotch, ke atas"><img src="assets/menotch-icon.png" width="34" height="34" alt="">MeNotch</a>
+    <nav aria-label="Navigasi utama">
+      <a href="#tab">Fitur</a>
+      <a href="#pasang">Pasang</a>
+      <a href="#tanya">Tanya</a>
+      <a class="btn btn--lime btn--small" href="download/MeNotch.dmg" download>Unduh</a>
+    </nav>
+  </header>
+
+  <h1 class="hero__title"><span class="l1 rise">Notch-mu</span><span class="l2 rise" style="--i:1">hidup.</span></h1>
+  <div class="hero__row">
+    <p class="hero__sub rise" style="--i:2">Kotak hitam di atas layarmu sekarang bisa memutar lagu, menjaga fokus, menyimpan file, dan mengingat yang kamu salin. <b>Plus sepasang mata yang ikut melirik.</b></p>
+    <div class="hero__act rise" style="--i:3">
+      <a class="btn btn--lime" href="download/MeNotch.dmg" download><svg class="icon"><use href="#i-down"/></svg>Unduh untuk Mac</a>
+      <p class="hero__meta">Versi 0.1.0 · Untuk macOS 15 ke atas · 2,2 MB</p>
+      <p class="hero__hint"><svg class="icon"><use href="#i-up"/></svg><span><b>Coba dulu:</b> arahkan kursor ke notch di atas.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Before — lemon -->
+<section class="ch ch--lemon" id="sebelum" data-chapter="before" data-preset="lemon" data-slot="none">
+  <div class="before">
+    <div class="before__text">
+      <h2 class="head rise">Kotak hitam, nganggur.</h2>
+      <p class="body rise" style="--i:1">Setiap hari kamu melihatnya. Ia memotong menu bar, menyimpan kamera, lalu diam saja. Sayang, kan?</p>
+      <p class="lead rise" style="--i:2"><b>MeNotch memberinya pekerjaan.</b> Muncul saat kamu butuh. Diam lagi saat tidak.</p>
+    </div>
+    <figure class="before__fig rise" style="--i:1">
+      <div class="before__frame"><img id="beforeImg" src="assets/macbook-notch.jpg" width="1200" height="1600" alt="Foto dekat notch kamera di tepi atas layar MacBook Pro 16 inci, dengan jendela pengaturan di bawahnya." loading="lazy" decoding="async"></div>
+      <figcaption>Notch MacBook Pro 16 inci. Belum kenal MeNotch.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3 · The mascot — black -->
+<section class="ch ch--black" id="mata" data-chapter="mascot" data-preset="user" data-slot="none">
+  <div class="mascot__top">
+    <h2 class="head rise">Dia punya mata.</h2>
+    <p class="body rise" style="--i:1">Dua mata kecil tinggal di sisi kiri notch. Mereka melirik ke arah kursormu, berkedip, tersipu kalau disapa, ngantuk kalau kamu diam 45 detik, dan berbinar saat charger dicolok. <b>Kecil, tapi Mac-mu jadi terasa ditemani.</b></p>
+  </div>
+
+  <div class="stage-eyes rise" style="--i:2" id="bigStage" data-ui title="Klik untuk mencolek">
+    <div class="stage-eyes__pill"><span class="face-slot" data-face="big"></span></div>
+  </div>
+
+  <div class="mascot__controls">
+    <div class="ctrl rise">
+      <h3 id="moodLabel">Coba ganti suasana hatinya</h3>
+      <div class="chips" role="group" aria-labelledby="moodLabel" id="moods">
+        <button class="chip" type="button" data-mood="open" aria-pressed="true">Biasa</button>
+        <button class="chip" type="button" data-mood="happy" aria-pressed="false">Senang</button>
+        <button class="chip" type="button" data-mood="surprised" aria-pressed="false">Kaget</button>
+        <button class="chip" type="button" data-mood="sleepy" aria-pressed="false">Ngantuk</button>
+        <button class="chip" type="button" data-mood="squeeze" aria-pressed="false">Dicolek</button>
+        <button class="chip" type="button" data-mood="sparkle" aria-pressed="false">Ngecas</button>
+      </div>
+      <p>Atau klik matanya. Dia tidak keberatan.</p>
+    </div>
+    <div class="ctrl rise" style="--i:1">
+      <h3 id="themeLabel">Pilih warna favoritmu</h3>
+      <div class="chips" role="group" aria-labelledby="themeLabel" id="themes">
+        <button class="chip" type="button" data-theme="lime" aria-pressed="true"><i class="dot" style="--c:#C8E64A"></i>Lime Mint</button>
+        <button class="chip" type="button" data-theme="candy" aria-pressed="false"><i class="dot" style="--c:#FF8CC6"></i>Pink Candy</button>
+        <button class="chip" type="button" data-theme="sky" aria-pressed="false"><i class="dot" style="--c:#72C8FF"></i>Blue Sky</button>
+        <button class="chip" type="button" data-theme="peach" aria-pressed="false"><i class="dot" style="--c:#FFB079"></i>Peach Sunset</button>
+        <button class="chip" type="button" data-theme="lavender" aria-pressed="false"><i class="dot" style="--c:#BBA6FF"></i>Lavender Dream</button>
+        <button class="chip" type="button" data-theme="lemon" aria-pressed="false"><i class="dot" style="--c:#FFE45E"></i>Lemon Soda</button>
+      </div>
+      <p>Enam warna, sama seperti di aplikasi. Notch di atas langsung ikut berganti.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Five tabs — sky -->
+<section class="ch ch--sky show-pin" id="tab" data-chapter="tabs" data-preset="sky" data-slot="bars">
+  <div class="show-sticky">
+  <div class="show">
+    <div class="show__list">
+      <h2 class="rise">Lima tab. Satu notch.</h2>
+      <div class="show__names" role="tablist" aria-label="Tab MeNotch" id="tabNames">
+        <button role="tab" aria-selected="true" aria-controls="p-home" id="t-home" data-panel="home" class="rise" style="--i:1">Beranda</button>
+        <button role="tab" aria-selected="false" aria-controls="p-focus" id="t-focus" data-panel="focus" class="rise" style="--i:2">Fokus</button>
+        <button role="tab" aria-selected="false" aria-controls="p-prompt" id="t-prompt" data-panel="prompt" class="rise" style="--i:3">Naskah</button>
+        <button role="tab" aria-selected="false" aria-controls="p-shelf" id="t-shelf" data-panel="shelf" class="rise" style="--i:4">Rak</button>
+        <button role="tab" aria-selected="false" aria-controls="p-clip" id="t-clip" data-panel="clip" class="rise" style="--i:5">Klip</button>
+      </div>
+      <p class="body show__desc" id="tabDesc" aria-live="polite">Jam, lagu yang sedang diputar, dan agenda hari ini. Semua dalam sekali lirik.</p>
+      <div class="show__progress" aria-hidden="true"><span class="show__track"><i id="tabProgress"></i></span><span class="show__hint">Scroll pelan, tab berganti sendiri</span></div>
+    </div>
+
+    <div class="show__stage rise" style="--i:2">
+      <div class="show__frag" id="frag" data-ui>
+        <div class="shape">
+          <div class="ui-head">
+            <div class="tabs" id="fragTabs">
+              <span class="face-slot" data-face="frag"></span>
+              <span class="tab is-on"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="tab"><svg class="icon"><use href="#i-timer"/></svg></span>
+              <span class="tab"><svg class="icon"><use href="#i-bubble"/></svg></span>
+              <span class="tab"><svg class="icon"><use href="#i-clip"/></svg></span>
+              <span class="tab"><svg class="icon"><use href="#i-tray"/></svg></span>
+            </div>
+            <div class="status">
+              <span class="tog is-on"><svg class="icon"><use href="#i-cup"/></svg></span>
+              <span class="tog"><svg class="icon"><use href="#i-pin"/></svg></span>
+              <span class="tog"><svg class="icon"><use href="#i-gear"/></svg></span>
+              <span class="batt"><i></i>87%</span>
+            </div>
+          </div>
+
+          <div class="panel is-on" id="p-home" role="tabpanel" aria-labelledby="t-home"><div class="ui-main" data-home style="height:170px"></div></div>
+
+          <div class="panel" id="p-focus" role="tabpanel" aria-labelledby="t-focus">
+            <div class="focus">
+              <div class="f-ring">
+                <svg viewBox="0 0 104 104"><circle class="bg" cx="52" cy="52" r="46"/><circle class="fg" cx="52" cy="52" r="46" stroke-dasharray="289" stroke-dashoffset="110"/></svg>
+                <div><b>15:32</b><small>Sedang fokus</small></div>
+              </div>
+              <div class="f-ctl">
+                <div class="segc"><span class="on">Fokus</span><span>Istirahat</span></div>
+                <div class="segc"><span class="on">Menit</span><span>Detik</span></div>
+                <div class="ruler"><div class="ruler__ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ruler__nums"><span>20</span><span>25</span><span>30</span></div></div>
+                <div class="f-row"><span class="f-btn"><svg class="icon" style="width:9px;height:9px"><use href="#i-pause"/></svg>Jeda</span><span class="f-round"><svg class="icon"><use href="#i-reset"/></svg></span></div>
+                <div class="f-stats">3 beruntun · 1 j 15 m hari ini</div>
+              </div>
+              <div class="hair"></div>
+              <div class="todo">
+                <div class="todo__h">Tugas <em>2</em></div>
+                <ul>
+                  <li class="done"><i></i>Kirim invoice ke klien</li>
+                  <li><i></i>Rapikan slide presentasi</li>
+                  <li><i></i>Balas email tim desain</li>
+                  <li class="add"><i></i>Tambah tugas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel" id="p-prompt" role="tabpanel" aria-labelledby="t-prompt">
+            <div class="prompt">
+              <div class="prompt__bar"><span>Presentasi Senin</span><span class="prompt__hide"><svg class="icon"><use href="#i-eyeoff"/></svg>Tersembunyi dari berbagi layar dan rekaman</span></div>
+              <div class="prompt__view"><div class="prompt__text"><p class="past">Halo semuanya, terima kasih sudah bergabung hari ini.</p><p>Teks ini bergulir pelan tepat di bawah kamera, jadi mata kamu tetap ke lensa.</p><p>Minggu ini kita bahas tiga hal: rilis, umpan balik, dan rencana bulan depan.</p><p class="past">Halo semuanya, terima kasih sudah bergabung hari ini.</p><p>Teks ini bergulir pelan tepat di bawah kamera, jadi mata kamu tetap ke lensa.</p><p>Minggu ini kita bahas tiga hal: rilis, umpan balik, dan rencana bulan depan.</p></div></div>
+              <div class="prompt__ctl"><svg class="icon" style="width:12px;height:12px;color:#fff"><use href="#i-pause"/></svg><span>Kecepatan gulir</span><span class="speed"></span></div>
+            </div>
+          </div>
+
+          <div class="panel" id="p-shelf" role="tabpanel" aria-labelledby="t-shelf">
+            <div class="shelf">
+              <div class="drop"><b>Taruh file di sini</b>atau klik untuk memilih · disimpan 1 jam</div>
+              <div class="file"><span class="file__ic">PDF</span><b>proposal-q4.pdf</b><span>54 mnt</span></div>
+              <div class="file"><span class="file__ic" style="background:#FFB079">PNG</span><b>foto-produk.png</b><span>41 mnt</span></div>
+              <div class="file"><span class="file__ic" style="background:#72C8FF">KEY</span><b>pitch.key</b><span>12 mnt</span></div>
+              <div class="airdrop"><svg class="icon"><use href="#i-airdrop"/></svg>AirDrop</div>
+            </div>
+          </div>
+
+          <div class="panel" id="p-clip" role="tabpanel" aria-labelledby="t-clip">
+            <div class="clip">
+              <div class="clip__h"><span>Riwayat clipboard</span><span>Terhapus setelah 5 menit</span></div>
+              <div class="clip__row">
+                <div class="citem is-hot"><p>Rapat dipindah ke jam 3 ya, ruangannya sama.</p><span><b>Baru saja</b><em></em></span></div>
+                <div class="citem"><div class="swatch"></div><span>#C8E64A<em>1 mnt</em></span></div>
+                <div class="citem"><div class="thumb"></div><span>Gambar<em>2 mnt</em></span></div>
+                <div class="citem"><p>Jl. Braga No. 12, Bandung</p><span>Teks<em>4 mnt</em></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="show__facts" id="tabFacts" aria-live="polite">
+        <li>Lagu dari Spotify, Apple Music, YouTube, dan lainnya</li>
+        <li>Ketuk tanggal, lihat acaranya</li>
+        <li>Kalendermu tetap di Mac-mu</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- 5 · Moments — candy, endless rows -->
+<section class="ch ch--candy moments" id="momen" data-chapter="moments" data-preset="candy" data-slot="none">
+  <div class="moments__top">
+    <h2 class="head rise">Momen yang mampir.</h2>
+    <p class="body rise" style="--i:1">Ada lagu mulai, file diseret, charger dicolok. Notch menyapa sebentar, lalu kembali tenang. Geser barisan ini sesukamu, ujungnya tidak ada. <b>Coba salin teks apa saja di halaman ini.</b></p>
+  </div>
+
+  <div class="rail marquee" data-dir="-1" aria-label="Momen MeNotch, baris pertama">
+    <div class="track">
+      <article class="mo" style="--c:var(--lime);--sc:var(--ink);--sci:#fff">
+        <div class="mo__pic"><div class="mini" data-ui><div class="mini__pill"><span class="mini__art"></span><span class="bars"><i></i><i></i><i></i><i></i></span></div></div></div>
+        <div class="mo__strip"><b>Lagu mulai</b><span><span>Spotify, YouTube, dll.</span><span>4 detik</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--ink);--sc:var(--lemon);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini"></span><span class="mini__val"><svg viewBox="0 0 12 12" class="ring"><circle class="bg" cx="6" cy="6" r="4.6"/><circle class="fg" cx="6" cy="6" r="4.6" stroke-dasharray="28.9" stroke-dashoffset="9"/></svg>24:59</span></div></div></div>
+        <div class="mo__strip"><b>Timer fokus</b><span><span>Hitung mundur di notch</span><span>Sampai selesai</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--sky);--sc:#fff;--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini mini--stack" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="happy"></span><span></span></div><div class="mini__peek"><span class="peek__icon"><svg class="icon"><use href="#i-copy"/></svg></span><p><b>Disalin</b>Rapat dipindah ke jam 3 ya</p></div></div></div>
+        <div class="mo__strip"><b>Teks disalin</b><span><span>⌘C di app mana pun</span><span>2,6 detik</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--peach);--sc:var(--ink);--sci:#fff">
+        <div class="mo__pic"><div class="mini" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="sparkle"></span><span class="mini__val"><svg class="bolt" viewBox="0 0 9 13"><use href="#i-bolt"/></svg>87%</span></div></div></div>
+        <div class="mo__strip"><b>Charger dicolok</b><span><span>Mata berbinar, petir menyala</span><span>Saat dicolok</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--lemon);--sc:var(--sky);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini mini--stack" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="surprised"></span><span></span></div><div class="mini__peek"><span class="peek__icon"><svg class="icon"><use href="#i-tray"/></svg></span><p><b>Lepaskan untuk menambahkan</b>laporan-final.pdf</p></div></div></div>
+        <div class="mo__strip"><b>File diseret</b><span><span>Rak terbuka sendiri</span><span>Selama menyeret</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--ink);--sc:var(--lime);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini mini--wide" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="sleepy"></span><span></span></div></div></div>
+        <div class="mo__strip"><b>Kamu diam dulu</b><span><span>45 detik tanpa gerak</span><span>Sampai kamu kembali</span></span></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="rail marquee" data-dir="1" aria-label="Momen MeNotch, baris kedua">
+    <div class="track">
+      <article class="mo" style="--c:var(--lemon);--sc:var(--ink);--sci:#fff">
+        <div class="mo__pic"><div class="mini" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="squeeze"></span><span></span></div></div></div>
+        <div class="mo__strip"><b>Dicolek</b><span><span>Klik matanya</span><span>Sekejap</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--sky);--sc:var(--ink);--sci:#fff">
+        <div class="mo__pic"><div class="mini mini--narrow" data-ui><span class="mini__menu mini__menu--l">Arsip&nbsp; Edit&nbsp; Lihat&nbsp; Jendela</span><div class="mini__pill"></div><span class="mini__menu mini__menu--r">Sel 4 Nov</span></div></div>
+        <div class="mo__strip"><b>Menu app penuh</b><span><span>Island minggir ke notch asli</span><span>Otomatis</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--lime);--sc:#fff;--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini"></span><span class="mini__val"><svg class="icon"><use href="#i-cup"/></svg></span></div></div></div>
+        <div class="mo__strip"><b>Tetap terjaga</b><span><span>Mac tidak tertidur</span><span>Sampai dimatikan</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--ink);--sc:var(--peach);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini mini--stack" data-ui style="--a:#298fff"><div class="mini__pill"><span class="face-slot" data-face="mini" data-mood="happy"></span><span></span></div><div class="mini__peek"><span class="peek__icon"><svg class="icon"><use href="#i-airdrop"/></svg></span><p><b>AirDrop</b>Kirim 3 file dari Rak</p></div></div></div>
+        <div class="mo__strip"><b>Kirim lewat AirDrop</b><span><span>Semua isi Rak</span><span>Satu klik</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--peach);--sc:var(--lemon);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="mini__art" style="background:#000;outline:.08em solid #333"></span><span class="bars"><i></i><i></i><i></i><i></i></span></div></div></div>
+        <div class="mo__strip"><b>Layar penuh</b><span><span>Di atas video &amp; slide</span><span>Bisa dimatikan</span></span></div>
+      </article>
+      <article class="mo" style="--c:var(--sky);--sc:var(--candy);--sci:var(--ink)">
+        <div class="mo__pic"><div class="mini mini--stack" data-ui style="--a:var(--lime)"><div class="mini__pill"><span class="face-slot" data-face="mini"></span><span></span></div><div class="mini__peek"><span class="peek__icon"><svg class="bolt" viewBox="0 0 9 13" style="width:.5em;height:.75em"><use href="#i-bolt"/></svg></span><p><b>Charger dilepas</b>Sekarang memakai baterai · 86%</p></div></div></div>
+        <div class="mo__strip"><b>Charger dilepas</b><span><span>Kabar dari baterai</span><span>Sekejap</span></span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Details — peach board -->
+<section class="ch ch--peach" id="detail" data-chapter="details" data-preset="peach" data-slot="timer">
+  <div class="board">
+    <div class="tile t-head rise" style="--c:var(--ink);--ci:#fff"><h2 class="head">Kecil-kecil berguna.</h2></div>
+    <div class="tile t-3x2 rise" style="--c:var(--sky);--i:1">
+      <div class="tile__el el-pin" data-ui aria-hidden="true"><svg class="icon"><use href="#i-pin"/></svg></div>
+      <div class="tile__cap"><b>Tetap terbuka</b><span>Sematkan, dan notch tidak menutup.</span></div>
+    </div>
+    <div class="tile t-3x2 rise" style="--c:var(--lemon);--i:2">
+      <div class="tile__el el-lang" data-ui aria-hidden="true">Beranda<span>Home</span></div>
+      <div class="tile__cap"><b>Dua bahasa</b><span>Ikut bahasa Mac-mu.</span></div>
+    </div>
+
+    <div class="tile t-6x4 rise" style="--c:var(--black);--ci:#fff">
+      <div class="tile__el el-batt" data-ui aria-hidden="true"><span class="shell"><span class="fill"></span><svg class="bolt" viewBox="0 0 9 13"><use href="#i-bolt"/></svg></span><b>87%</b></div>
+      <div class="tile__cap"><b>Ngecas kelihatan</b><span>Petir menyala, persen bernapas pelan, dan kamu tahu kapan penuh.</span></div>
+    </div>
+    <div class="tile t-3x4 rise" style="--c:var(--lime);--i:1">
+      <div class="tile__el el-cup" data-ui aria-hidden="true"><svg class="icon"><use href="#i-cup"/></svg></div>
+      <div class="tile__cap"><b>Tetap terjaga</b><span>Satu ketukan, Mac tidak tertidur saat unduhan panjang.</span></div>
+    </div>
+    <div class="tile t-3x4 rise" style="--c:var(--candy);--i:2">
+      <div class="tile__el el-ruler" data-ui aria-hidden="true"><div class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="nums"><span>20</span><span>25</span><span>30</span></div></div>
+      <div class="tile__cap"><b>Geser penggaris</b><span>Atur timer dengan satu tarikan jari.</span></div>
+    </div>
+
+    <div class="tile t-6x2 rise" style="--c:var(--sky)">
+      <div class="tile__el el-pass" data-ui aria-hidden="true"><p>••••••••••</p><span><svg class="icon"><use href="#i-lock"/></svg>Password manager · dilewati</span></div>
+      <div class="tile__cap"><b>Password tidak disimpan</b><span>Isi dari password manager dilewati. Selalu.</span></div>
+    </div>
+    <div class="tile t-3x2 rise" style="--c:var(--lemon);--i:1">
+      <div class="tile__el el-hide" data-ui aria-hidden="true"><svg class="icon"><use href="#i-eyeoff"/></svg></div>
+      <div class="tile__cap"><b>Tak ikut terekam</b><span>Naskahmu tidak muncul saat share screen.</span></div>
+    </div>
+    <div class="tile t-3x2 rise" style="--c:var(--lime);--i:2">
+      <div class="tile__el el-swipe" data-ui aria-hidden="true"><svg class="icon"><use href="#i-hand"/></svg><span class="dotrow"><i class="on"></i><i></i><i></i></span></div>
+      <div class="tile__cap"><b>Geser dua jari</b><span>Pindah tab langsung dari trackpad.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Install — black, the bar is the diagram -->
+<section class="ch ch--black how" id="pasang" data-chapter="how" data-preset="user" data-slot="bolt">
+  <h2 class="head rise">Siap dalam dua menit.</h2>
+  <div class="bar" data-ui role="list" aria-label="Langkah memasang MeNotch">
+    <div class="seg rise" role="listitem" style="--c:var(--lime);flex-grow:12"><b>Sepuluh detik</b><p>Unduh MeNotch.dmg. Cuma 2,2 MB.</p></div>
+    <div class="seg rise" role="listitem" style="--c:var(--sky);flex-grow:12;--i:1"><b>Lima detik</b><img class="seg__icon" src="assets/menotch-icon.png" width="512" height="512" alt="Ikon aplikasi MeNotch yang diseret ke Applications" loading="lazy" decoding="async"><p>Seret ke folder Applications.</p></div>
+    <div class="seg rise" role="listitem" style="--c:var(--candy);flex-grow:40;--i:2"><b>Satu menit</b><p>Beri izin Kalender, Documents, dan Aksesibilitas. Boleh dilewati, kok.</p></div>
+    <div class="seg rise" role="listitem" style="--c:var(--lemon);flex-grow:60;--i:3"><b>Seterusnya</b><p>Arahkan kursor ke notch. Selesai.</p></div>
+  </div>
+  <div class="bar__notes" aria-hidden="true">
+    <p style="flex-grow:12"><span>Unduh MeNotch.dmg. Cuma 2,2 MB.</span></p>
+    <p style="flex-grow:12"><span>Seret ke folder Applications.</span></p>
+    <p style="flex-grow:40"><span>Beri izin Kalender, Documents, dan Aksesibilitas. Boleh dilewati, kok.</span></p>
+    <p style="flex-grow:60"><span>Arahkan kursor ke notch. Selesai.</span></p>
+  </div>
+  <p class="how__req rise"><span><b>Butuh</b> macOS 15 Sequoia ke atas</span><span><b>Dibuat</b> native dengan Swift</span><span><b>Bahasa</b> Indonesia dan English</span></p>
+</section>
+
+<!-- 8 · FAQ — lemon -->
+<section class="ch ch--lemon" id="tanya" data-chapter="faq" data-preset="lemon" data-slot="none" data-mood="sleepy">
+  <div class="faq">
+    <h2 class="head rise">Sering ditanya.</h2>
+    <div class="faq__list">
+      <details class="qa" name="faq" open>
+        <summary>Mac saya tidak punya notch. Tetap bisa?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Bisa.</b> MeNotch akan membuat notch virtual di tengah atas layar. Semua tab tetap jalan.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Izin apa saja yang diminta?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Tiga, dan semuanya boleh dilewati.</b> Kalender untuk agenda. Folder Documents untuk menyimpan file di Rak. Aksesibilitas supaya notch minggir saat menu aplikasi butuh tempat.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Data saya dikirim ke mana?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Tidak ke mana-mana.</b> MeNotch tidak punya akun dan tidak terhubung ke server. Semuanya tetap di Mac-mu.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Musik dari aplikasi apa saja?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Hampir semua.</b> Spotify, Apple Music, YouTube, YouTube Music, SoundCloud, TikTok web, dan banyak lagi. Aplikasi yang bersuara tanpa info lagu tetap muncul dengan ikon dan namanya.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Berapa lama file di Rak disimpan?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Satu jam.</b> File-mu disalin ke <code>Documents › MeNotch</code>, lalu salinannya dibuang ke Tong Sampah. File aslimu tidak disentuh.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Password saya ikut tersimpan?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Tidak.</b> Isi dari password manager dilewati, dan riwayat clipboard terhapus sendiri setelah 5 menit. Mau lebih tenang? Matikan saja di Pengaturan.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Naskah ikut terlihat saat share screen?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Tidak.</b> Tab Naskah disembunyikan dari share screen dan rekaman. Penonton hanya melihat wajahmu.</p>
+      </details>
+      <details class="qa" name="faq">
+        <summary>Bagaimana cara menghapus MeNotch?<span class="plus" aria-hidden="true"></span></summary>
+        <p class="qa__a"><b>Gampang.</b> Keluar lewat ikon di menu bar, lalu pindahkan MeNotch dari Applications ke Tong Sampah. Hapus juga folder <code>Documents › MeNotch</code> kalau masih ada.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · Call to action — lime, the first screen already open -->
+<section class="ch ch--lime" id="unduh" data-chapter="cta" data-preset="lime" data-slot="none" data-mood="happy">
+  <div class="cta">
+    <div class="cta__text">
+      <h2 class="head">Sapa dia di notch-mu.</h2>
+      <p class="body">Unduh, seret ke Applications, lalu buka. Panduan singkat menemanimu sampai selesai. <b>Tidak sampai dua menit.</b></p>
+    </div>
+    <div class="welcome" data-ui role="group" aria-label="Contoh jendela sambutan MeNotch">
+      <div class="welcome__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="welcome__body">
+        <div class="welcome__pill"><span class="face-slot" data-face="welcome" data-mood="happy"></span></div>
+        <h3>Semua siap!</h3>
+        <p>Arahkan kursor ke notch di atas layar kapan pun kamu butuh aku. Seret file ke sana, salin sesuatu, atau colok charger untuk melihat aku bereaksi.</p>
+        <div class="welcome__dots" aria-hidden="true"><i></i><i></i><i class="on"></i></div>
+        <label class="welcome__toggle"><span>Buka MeNotch saat Mac menyala</span><input type="checkbox" checked><span class="switch" aria-hidden="true"></span></label>
+        <a class="btn btn--lime" href="download/MeNotch.dmg" download><svg class="icon"><use href="#i-down"/></svg>Unduh MeNotch</a>
+        <p class="welcome__note">Versi 0.1.0 · macOS 15+ · 2,2 MB</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 10 · Footer — black -->
+<footer class="foot" data-chapter="footer" data-preset="user" data-slot="none" data-mood="happy">
+  <div class="foot__row">
+    <div class="foot__places">
+      <a href="download/MeNotch.dmg" download>Unduh untuk Mac</a>
+      <a href="#pasang">Cara pasang</a>
+      <a href="#tanya">Pertanyaan</a>
+    </div>
+    <div class="foot__cols">
+      <div><h3>Tab</h3><ul><li><a href="#tab" data-go="home">Beranda</a></li><li><a href="#tab" data-go="focus">Fokus</a></li><li><a href="#tab" data-go="prompt">Naskah</a></li><li><a href="#tab" data-go="shelf">Rak</a></li><li><a href="#tab" data-go="clip">Klip</a></li></ul></div>
+      <div><h3>Halaman</h3><ul><li><a href="#sebelum">Sebelum</a></li><li><a href="#mata">Matanya</a></li><li><a href="#momen">Momen</a></li><li><a href="#detail">Detail</a></li></ul></div>
+      <div><h3>Info</h3><ul><li>Versi 0.1.0</li><li>macOS 15+</li><li>Swift + SwiftUI</li></ul></div>
+    </div>
+    <p class="foot__credit">Foto notch: “Notch of Macbook Pro 16 inti model - 1” oleh <a href="https://commons.wikimedia.org/wiki/User:KKPCW">KKPCW</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/w/index.php?curid=112258161">Wikimedia Commons</a>.</p>
+  </div>
+  <div class="foot__name" aria-hidden="true"><span>MeNotch</span></div>
+  <div class="foot__legal"><span>© 2026 Rezky. Dibuat dengan Swift dan sedikit sayang.</span><a href="#top">Kembali ke atas</a></div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
