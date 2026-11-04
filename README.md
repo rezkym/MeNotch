@@ -1,47 +1,125 @@
-# MeNotch — Landing page
+<p align="center">
+  <img src="assets/menotch-icon.png" width="96" alt="Ikon MeNotch">
+</p>
 
-Halaman promosi MeNotch. HTML + CSS + JavaScript biasa: tanpa framework, tanpa build, tanpa `npm install`.
+<h1 align="center">MeNotch</h1>
 
-## Menjalankan
+<p align="center">
+  <b>Ubah notch MacBook jadi pulau kecil yang hidup.</b><br>
+  Musik, jam &amp; kalender, timer fokus, teleprompter, riwayat clipboard, dan rak file — tepat di bawah kamera.
+</p>
 
-Cukup buka `index.html` di browser (klik dua kali), atau jalankan server lokal:
+<p align="center">
+  <a href="https://github.com/rezkym/MeNotch/releases/latest/download/MeNotch.dmg"><b>⬇︎ Unduh MeNotch untuk Mac</b></a>
+  &nbsp;·&nbsp; macOS 15+ &nbsp;·&nbsp; 2,2 MB &nbsp;·&nbsp;
+  <a href="https://github.com/rezkym/MeNotch/releases">Semua versi</a>
+</p>
 
-```sh
-cd ~/Documents/Project_Rezky/MeNotch-Landing
-python3 -m http.server 8000   # lalu buka http://localhost:8000
-```
+<p align="center">
+  <img src="docs/screenshots/closed.png" width="380" alt="Island tertutup: mata maskot dan equalizer saat musik diputar">
+</p>
 
-Untuk online: unggah seluruh folder ini apa adanya ke hosting statis mana pun (Cloudflare Pages, Netlify, GitHub Pages).
+---
 
-## Isi folder
+## Cara kerjanya
 
-| Path | Isi |
-|---|---|
-| `index.html` | Seluruh halaman (10 bab) |
-| `css/style.css` | Semua gaya, warna = 6 preset tema aplikasi |
-| `js/app.js` | Notch interaktif, mata yang mengikuti kursor, tab, baris momen tanpa ujung |
-| `assets/` | Ikon aplikasi, foto notch (lisensi CC BY-SA 4.0, kredit di footer), `credits.json` |
-| `download/MeNotch.dmg` | Salinan build QA terakhir — ganti dengan build rilis sebelum online |
-| `.taste-skill/` | File kerja desain (arah desain, screenshot pengecekan). Boleh dihapus. |
+Saat tertutup, MeNotch menyatu dengan notch: sepasang mata kecil menemani kamu, dan equalizer muncul saat ada musik.
+**Arahkan kursor ke notch** → island terbuka. Pindah tab dengan klik ikon di atas atau **geser dua jari** di trackpad.
+Jauhkan kursor → island menutup sendiri.
 
-## Yang interaktif
+## Fitur
 
-- **Notch di atas layar** menempel seperti notch asli. Arahkan kursor (atau ketuk di HP) → terbuka jadi tab Beranda dengan jam asli dan kalender bulan ini. Klik matanya untuk "mencolek".
-- Setiap bab punya warna preset sendiri; notch ikut berganti warna dan isi (lagu, timer, ngecas, ngantuk…). Di bab hitam, warnanya ikut pilihan pengunjung.
-- **Salin teks apa saja** di halaman → muncul baris "Disalin" seperti di aplikasi. Seret file ke halaman → "Lepaskan untuk menambahkan".
-- **Bab Mata**: ganti suasana hati & 6 tema warna (tersimpan di browser).
-- **Bab Lima tab**: bagian ini menempel saat di-scroll. Scroll turun → Beranda, Fokus, Naskah, Rak, Klip bergantian; scroll naik → mundur lagi. Klik nama tab (atau tombol panah) untuk loncat. Notch di atas ikut berganti isi per tab.
-- **Bab Momen**: dua baris tanpa ujung; kecepatan & arah ikut scroll, bisa digeser (drag).
-- Diam 45 detik → maskot mengantuk (sama seperti aplikasi).
-- Semua animasi mati otomatis bila sistem meminta *Reduce motion*.
+### Beranda
+Jam, lagu yang sedang diputar (dengan tombol putar/jeda/lompat), kalender bulan ini, dan agenda hari yang dipilih.
+Musik terbaca dari mana saja: Spotify, Apple Music, YouTube, YouTube Music, SoundCloud, TikTok web, dan aplikasi lain yang bersuara.
 
-## Tipografi & gaya tulisan
+<img src="docs/screenshots/home.png" width="720" alt="Tab Beranda">
 
-- Huruf: **Noto Sans** (dasar dari font IKEA) — 800 untuk judul, 400/700 untuk teks. Tampilan app di dalam notch tetap pakai font sistem macOS supaya mirip aslinya.
-- Gaya tulisan ala IKEA: kalimat pendek, poin utama dulu (ditebalkan), lalu detail sederhana. Sapaan "kamu", sedikit humor, tanpa istilah teknis.
+### Fokus
+Timer Pomodoro (fokus ↔ istirahat) dengan penggaris geser untuk mengatur waktu, statistik harian & beruntun,
+dan daftar tugas singkat. Hitung mundurnya tetap terlihat di notch saat island tertutup.
 
-## Ganti sebelum online
+<img src="docs/screenshots/focus.png" width="720" alt="Tab Fokus">
 
-- Konten contoh: acara kalender (Standup tim, dll.), lagu "Sore di Teras — Nada Kopi", tugas, nama file, isi clipboard.
-- Tautan unduh `download/MeNotch.dmg` → build rilis (Developer ID + notarisasi).
-- Belum ada harga, kontak, atau kebijakan privasi — tambahkan bila diperlukan.
+### Naskah (teleprompter)
+Teks bergulir pelan tepat di bawah kamera, jadi mata kamu tetap terlihat menatap lawan bicara saat rapat atau merekam.
+Atur kecepatan & ukuran huruf, geser teks dengan dua jari, dan **sembunyikan MeNotch dari screen sharing** dengan satu klik.
+
+<img src="docs/screenshots/prompter.png" width="720" alt="Tab Naskah">
+
+### Clipboard
+Setiap kali kamu menyalin, muncul konfirmasi kecil di bawah notch. Riwayat (teks, tautan, gambar, file) bisa diklik
+untuk disalin lagi dan terhapus otomatis setelah 5 menit. Isi dari pengelola kata sandi tidak pernah disimpan.
+
+<img src="docs/screenshots/clipboard.png" width="720" alt="Tab Clipboard">
+
+### Rak
+Tempat singgah file: seret file ke notch (rak terbuka otomatis saat kamu mulai menyeret), lalu seret keluar ke mana saja
+atau kirim lewat AirDrop. File disalin ke `Documents/MeNotch` dan dibersihkan setelah 1 jam — file aslinya tidak disentuh.
+
+<img src="docs/screenshots/shelf.png" width="720" alt="Tab Rak">
+
+### Pengaturan
+Enam tema warna, maskot on/off, pantau clipboard, beri ruang untuk menu aplikasi, tampil di layar penuh, dan buka saat login.
+
+<img src="docs/screenshots/settings.png" width="720" alt="Tab Pengaturan">
+
+### Hal kecil lainnya
+- **Maskot** mengikuti kursor, berkedip, senang saat island dibuka, kaget saat dicolek, mengantuk saat kamu lama diam, dan bermata bintang saat charger dicolok.
+- **Ngecas**: animasi colokan + perkiraan waktu sampai penuh saat charger dipasang atau dilepas.
+- **Keep Awake** (ikon cangkir): Mac tidak tidur selama aktif.
+- **Tahu diri**: island mengecil saat menu aplikasi atau ikon status butuh tempat di menu bar.
+
+## Instalasi
+
+1. **Unduh** [`MeNotch.dmg`](https://github.com/rezkym/MeNotch/releases/latest/download/MeNotch.dmg) dari halaman [Releases](https://github.com/rezkym/MeNotch/releases).
+2. **Buka** file DMG, lalu **seret MeNotch ke folder Applications**.
+3. **Jalankan** MeNotch dari Applications (atau Launchpad).
+4. Saat pertama kali dibuka, macOS mungkin berkata aplikasi tidak bisa diperiksa — karena build ini belum dinotarisasi Apple.
+   Buka **System Settings → Privacy & Security**, gulir ke bawah, lalu klik **Open Anyway** di baris MeNotch.
+5. Ikuti **panduan pembuka** (3 langkah singkat) untuk memberi izin. Semuanya bisa dilewati dan diatur nanti dari ikon MeNotch di menu bar → *Panduan & Izin…*
+
+Kebutuhan: **macOS 15 Sequoia atau lebih baru**. Paling pas di MacBook dengan notch; di layar tanpa notch, MeNotch membuat notch virtual di tengah atas layar.
+
+### Izin yang diminta
+
+| Izin | Untuk apa | Wajib? |
+|---|---|---|
+| Folder Documents | Menyimpan salinan file Rak dan gambar clipboard di `Documents/MeNotch` | Disarankan |
+| Kalender | Menampilkan acara di tab Beranda | Disarankan |
+| Accessibility | Menggeser island saat menu aplikasi mencapai notch | Opsional |
+
+Semua data tetap di Mac kamu. MeNotch tidak mengirim apa pun ke internet.
+
+### Menghapus MeNotch
+
+1. Di **Pengaturan** MeNotch, matikan **Buka saat login**.
+2. Bersihkan pengaturan, izin, dan file MeNotch. Jalankan **sebelum** app dihapus, karena `tccutil` perlu app-nya masih ada:
+
+   ```sh
+   osascript -e 'quit app "MeNotch"'
+   defaults delete dev.rezky.MeNotch          # pengaturan
+   tccutil reset All dev.rezky.MeNotch        # izin Kalender, Documents, Accessibility
+   rm -rf ~/Documents/MeNotch                 # file Rak & riwayat clipboard
+   ```
+
+3. Hapus `MeNotch.app` dari folder Applications.
+
+## Hemat baterai
+
+MeNotch dirancang untuk menyala seharian tanpa terasa:
+
+- Hampir tidak memakai CPU saat kamu diam, dan **berhenti total saat layar mati atau terkunci**.
+- Animasi yang berjalan terus (equalizer, maskot bergoyang, "zZz") digambar oleh Core Animation, bukan oleh aplikasinya.
+- Memori stabil di sekitar 40 MB, tanpa kebocoran meski dipakai berjam-jam.
+
+Lihat [catatan rilis](https://github.com/rezkym/MeNotch/releases) untuk detail tiap versi.
+
+## Kredit
+
+- Info lagu dibaca lewat [mediaremote-adapter](https://github.com/ungive/mediaremote-adapter) (BSD-3-Clause).
+- Foto notch di situs: "Notch of Macbook Pro 16 inti model - 1" oleh KKPCW, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons.
+
+Repo ini juga berisi situs promosi MeNotch (`index.html`, `css/`, `js/`, `assets/`) — cukup buka `index.html` di browser.
+
+© 2026 Rezky. All rights reserved.
