@@ -6,12 +6,12 @@
 
 <p align="center">
   <b>Ubah notch MacBook jadi pulau kecil yang hidup.</b><br>
-  Musik, jam &amp; kalender, timer fokus, teleprompter, riwayat clipboard, dan rak file — tepat di bawah kamera.
+  Musik, jam &amp; kalender, timer fokus, teleprompter, clipboard, rak file, port yang terbuka, dan akun AI — tepat di bawah kamera.
 </p>
 
 <p align="center">
   <a href="https://github.com/rezkym/MeNotch/releases/latest/download/MeNotch.dmg"><b>⬇︎ Unduh MeNotch untuk Mac</b></a>
-  &nbsp;·&nbsp; macOS 15+ &nbsp;·&nbsp; 2,2 MB &nbsp;·&nbsp;
+  &nbsp;·&nbsp; macOS 15+ &nbsp;·&nbsp; 2,6 MB &nbsp;·&nbsp;
   <a href="https://github.com/rezkym/MeNotch/releases">Semua versi</a>
 </p>
 
@@ -59,6 +59,19 @@ atau kirim lewat AirDrop. File disalin ke `Documents/MeNotch` dan dibersihkan se
 
 <img src="docs/screenshots/shelf.png" width="720" alt="Tab Rak">
 
+### Port
+Daftar port TCP yang sedang dibuka di Mac kamu, lengkap dengan aplikasi atau proses pemiliknya, PID, perintah lengkapnya,
+dan apakah bisa diakses dari jaringan atau hanya lokal. Cari berdasarkan nomor port atau nama, lalu hentikan dengan satu klik
+— atau **Hentikan Semua** sekaligus. Layanan bawaan macOS dikelompokkan terpisah (terlipat) dan selalu ditanya dua kali
+sebelum dihentikan, supaya sistem tidak ikut terganggu.
+
+### Akun AI (Claude & Codex)
+Simpan beberapa login Claude Code dan Codex CLI, lalu pindah akun aktif dengan satu klik tanpa login ulang. Setiap akun
+menampilkan sisa limit 5 jam dan mingguan beserta hitung mundur reset-nya dalam bentuk cincin kecil.
+Tambah akun cukup dengan **Tempel** kredensial (export 9router, `~/.codex/auth.json`, atau JSON Claude Code), **Pilih File…**,
+atau **Dari Mac Ini**. Token disimpan di Keychain, dan teks berisi token tidak pernah masuk riwayat clipboard.
+Gunakan hanya akun milikmu sendiri dan patuhi ketentuan layanan Anthropic / OpenAI.
+
 ### Pengaturan
 Enam tema warna, maskot on/off, pantau clipboard, beri ruang untuk menu aplikasi, tampil di layar penuh, dan buka saat login.
 
@@ -89,7 +102,8 @@ Kebutuhan: **macOS 15 Sequoia atau lebih baru**. Paling pas di MacBook dengan no
 | Kalender | Menampilkan acara di tab Beranda | Disarankan |
 | Accessibility | Menggeser island saat menu aplikasi mencapai notch | Opsional |
 
-Semua data tetap di Mac kamu. MeNotch tidak mengirim apa pun ke internet.
+Semua data tetap di Mac kamu. Satu-satunya koneksi internet adalah fitur **Akun AI**: dengan token milikmu sendiri, MeNotch
+membaca sisa limit dan memperbarui token langsung ke server Anthropic / OpenAI — hanya saat tab itu dibuka atau saat berganti akun.
 
 ### Menghapus MeNotch
 
@@ -101,6 +115,7 @@ Semua data tetap di Mac kamu. MeNotch tidak mengirim apa pun ke internet.
    defaults delete dev.rezky.MeNotch          # pengaturan
    tccutil reset All dev.rezky.MeNotch        # izin Kalender, Documents, Accessibility
    rm -rf ~/Documents/MeNotch                 # file Rak & riwayat clipboard
+   while security delete-generic-password -s "MeNotch AI Accounts" >/dev/null 2>&1; do :; done  # token Akun AI
    ```
 
 3. Hapus `MeNotch.app` dari folder Applications.
@@ -111,7 +126,8 @@ MeNotch dirancang untuk menyala seharian tanpa terasa:
 
 - Hampir tidak memakai CPU saat kamu diam, dan **berhenti total saat layar mati atau terkunci**.
 - Animasi yang berjalan terus (equalizer, maskot bergoyang, "zZz") digambar oleh Core Animation, bukan oleh aplikasinya.
-- Memori stabil di sekitar 40 MB, tanpa kebocoran meski dipakai berjam-jam.
+- Timer fokus, port, dan usage AI hanya bekerja saat dibutuhkan: tidak ada polling di latar belakang saat tab-nya tertutup.
+- Memori stabil, tanpa kebocoran meski dipakai berjam-jam atau sering berpindah tab.
 
 Lihat [catatan rilis](https://github.com/rezkym/MeNotch/releases) untuk detail tiap versi.
 
